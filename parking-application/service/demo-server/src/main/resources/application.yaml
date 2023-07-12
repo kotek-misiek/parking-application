@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: demo-server
+server:
+  port: 8090
+filter:
+  path:
+    excluded: /demo/token, /other/token

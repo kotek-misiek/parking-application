@@ -22,7 +22,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-    private final static Logger log = LoggerFactory.getLogger(JwtRequestFilter.class);
+    private final static Logger LOG = LoggerFactory.getLogger(JwtRequestFilter.class);
     private final static String AUTH_NULL_ERROR = "Authorization header doesn't exist";
     private final static String AUTH_NO_BEARER_ERROR = "Authorization header doesn't contain the keyword Bearer";
     private final static String AUTH_INCORRECT_ISSUER_ERROR = "Incorrect issuer";
@@ -38,7 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
-        log.info(PATH_ENTERED, request.getServletPath());
+        LOG.info(PATH_ENTERED, request.getServletPath());
         if (!pathExcluded.contains(request.getServletPath())) {
             final String authorization = request.getHeader(AUTHORIZATION);
             if (!checkAuthorization(authorization)) {
@@ -51,24 +51,24 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private boolean checkAuthorization(String authorization) {
         if (isNull(authorization)) {
-            log.error(AUTH_NULL_ERROR);
+            LOG.error(AUTH_NULL_ERROR);
             return false;
         } else if (!authorization.startsWith("Bearer ")) {
-            log.error(AUTH_NO_BEARER_ERROR);
+            LOG.error(AUTH_NO_BEARER_ERROR);
             return false;
         } else {
             final var jwt = authorization.substring(7);
             try {
                 final var decodedJWT = JWT.decode(jwt);
                 if (!"ITSharkz".equals(decodedJWT.getIssuer())) {
-                    log.error(AUTH_INCORRECT_ISSUER_ERROR);
+                    LOG.error(AUTH_INCORRECT_ISSUER_ERROR);
                     return false;
                 } else if (decodedJWT.getExpiresAt().before(new Date())) {
-                    log.error(AUTH_TOKEN_EXPIRED_ERROR);
+                    LOG.error(AUTH_TOKEN_EXPIRED_ERROR);
                     return false;
                 }
             } catch (JWTDecodeException e) {
-                log.error(AUTH_INCORRECT_TOKEN_ERROR);
+                LOG.error(AUTH_INCORRECT_TOKEN_ERROR);
                 return false;
             }
         }

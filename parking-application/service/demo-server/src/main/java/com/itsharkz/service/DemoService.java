@@ -21,7 +21,7 @@ import static java.lang.String.format;
 
 @Service
 public class DemoService {
-    private final static Logger log = LoggerFactory.getLogger(DemoService.class);
+    private final static Logger LOG = LoggerFactory.getLogger(DemoService.class);
     private final static String FIELDS_JSONPATH = "$.records[*].fields";
     private final static String RECORDS_READ = "{} records read";
     private final static String RECORDS_FILTERED_JSONPATH =
@@ -47,7 +47,7 @@ public class DemoService {
 
         final var parkings = filterParking(createPotiersParkingList(parkingList, parkingRealtimeList),
             lattitude, longitude, length, proportion);
-        log.info(RECORDS_READ, parkings.size());
+        LOG.info(RECORDS_READ, parkings.size());
         return parkings;
     }
 
@@ -59,11 +59,11 @@ public class DemoService {
         final var recordPath = format(RECORDS_FILTERED_JSONPATH, longMin, longMax, latMin, latMax);
         JSONArray records = JsonPath.parse(parkingString).read(recordPath);
         records
-            .forEach(record -> appendRealtimeParams((Map) record, parkingRealtimeString));
+            .forEach(record -> appendRealtimeParams((Map<String, Object>) record, parkingRealtimeString));
         jsonMap.put("nhits", records.size());
         jsonMap.put("records", records);
 
-        log.info(RECORDS_READ, records.size());
+        LOG.info(RECORDS_READ, records.size());
         return JSONObject.toJSONString(jsonMap);
     }
 

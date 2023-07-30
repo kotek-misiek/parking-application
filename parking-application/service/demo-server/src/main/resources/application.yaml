@@ -5,4 +5,4 @@ server:
   port: 8090
 filter:
   path:
-    excluded: /demo/token, /other/token
+    excluded: /demo/token, /other/token, /demo/poitiers

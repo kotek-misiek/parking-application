@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "94e7c887-f0c7-4731-a54a-5fb89bcd7aa9",
+		"name": "parking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "parking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8100/api/parking?city=poitiers&lattitude=46.58595804860371&longitude=0.3512954265806957",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"api",
+						"parking"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "poitiers"
+						},
+						{
+							"key": "lattitude",
+							"value": "46.58595804860371"
+						},
+						{
+							"key": "longitude",
+							"value": "0.3512954265806957"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo poitiers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJVFNoYXJreiB0ZXN0IiwibmJmIjoxNjkwMzk4NTc3LCJpc3MiOiJJVFNoYXJreiIsImV4cCI6MTY5MDM5OTE3NiwidXNlcklkIjoibXRva3Vyb3ciLCJpYXQiOjE2OTAzOTg1NzYsImp0aSI6ImJhNGE0ZTBmLTQ5ZTctNGM2Ny04MGJkLTliZDlkZWI2MmQ0YiJ9.YNWj96lhEmnhZqVgzOgOiDfXV42ukBa3C3t0sLkVRx8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/demo/poitiers?lattitude=46.58595804860371",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"demo",
+						"poitiers"
+					],
+					"query": [
+						{
+							"key": "lattitude",
+							"value": "46.58595804860371"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo montpellier",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJJVFNoYXJreiB0ZXN0IiwibmJmIjoxNjkwNzQxMjAwLCJpc3MiOiJJVFNoYXJreiIsImV4cCI6MTY5MDc0MTc5OSwidXNlcklkIjoibXRva3Vyb3ciLCJpYXQiOjE2OTA3NDExOTksImp0aSI6IjBhMWNkODU5LTE2NjgtNDkwYi1iYzJiLWM2MjdjMTE5NzU1OCJ9.-dp7CtCOejtQhNOTVpjCdGNN1D9DjHgmxtNpoIizUEM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/demo/montpellier/46.58223077587643/46.58968532133098/0.3410454265806957/0.36154542658069566",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"demo",
+						"montpellier",
+						"46.58223077587643",
+						"46.58968532133098",
+						"0.3410454265806957",
+						"0.36154542658069566"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/demo/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"demo",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://data.grandpoitiers.fr/api/records/1.0/search/?dataset=mobilites-stationnement-des-parkings-en-temps-reel&facet=nom",
+					"protocol": "https",
+					"host": [
+						"data",
+						"grandpoitiers",
+						"fr"
+					],
+					"path": [
+						"api",
+						"records",
+						"1.0",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "dataset",
+							"value": "mobilites-stationnement-des-parkings-en-temps-reel"
+						},
+						{
+							"key": "facet",
+							"value": "nom"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

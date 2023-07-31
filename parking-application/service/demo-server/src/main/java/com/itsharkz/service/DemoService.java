@@ -72,8 +72,8 @@ public class DemoService {
         final var name = ((Map<?, ?>) record.get(FIELDS)).getOrDefault(NAME, null);
         final var jsonPath = format(RECORDS_REALTIME_FILTERED_JSONPATH, name);
         final var realtimeRecord = (JSONArray) JsonPath.parse(parkingRealtimeString).read(jsonPath);
-        var capacity = -1.0;
-        var free = -1.0;
+        Double capacity = null;
+        Double free = null;
         if (!realtimeRecord.isEmpty()) {
             final var flds = (Map<?, ?>) ((Map<?, ?>) realtimeRecord.get(0)).get(FIELDS);
             capacity = (double) flds.get(CAPACITY);

@@ -12,7 +12,6 @@ server:
 parking:
   basicParams:
     proportion: 2.75
-    minLength: 0.00205
     defaultLength: 0.0205
   cities:
     -

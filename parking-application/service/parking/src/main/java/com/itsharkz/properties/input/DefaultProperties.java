@@ -7,6 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class DefaultProperties {
     private final double proportion;
-    private final double minLength;
     private final double defaultLength;
 }

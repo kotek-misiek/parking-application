@@ -40,6 +40,7 @@ public class RequestFilter extends OncePerRequestFilter {
                 final var errorMessage = format(CITY_NOT_ALLOWED, cityName);
                 LOG.error(errorMessage);
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, errorMessage);
+                return;
             }
         }
         chain.doFilter(request, response);

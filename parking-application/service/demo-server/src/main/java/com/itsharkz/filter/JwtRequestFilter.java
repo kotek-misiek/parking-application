@@ -29,6 +29,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final static String AUTH_INCORRECT_TOKEN_ERROR = "Incorrect token";
     private final static String AUTH_TOKEN_EXPIRED_ERROR = "Token expired";
     private final static String PATH_ENTERED = "Path entered {}";
+    private final static String BEARER_ = "Bearer ";
+    private final static String ISSUER_CORRECT = "ITSharkz";
     private final List<String> pathExcluded;
 
     public JwtRequestFilter(@Value("${filter.path.excluded}") String[] pathExcluded) {
@@ -53,14 +55,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (isNull(authorization)) {
             LOG.error(AUTH_NULL_ERROR);
             return false;
-        } else if (!authorization.startsWith("Bearer ")) {
+        } else if (!authorization.startsWith(BEARER_)) {
             LOG.error(AUTH_NO_BEARER_ERROR);
             return false;
         } else {
             final var jwt = authorization.substring(7);
             try {
                 final var decodedJWT = JWT.decode(jwt);
-                if (!"ITSharkz".equals(decodedJWT.getIssuer())) {
+                if (!ISSUER_CORRECT.equals(decodedJWT.getIssuer())) {
                     LOG.error(AUTH_INCORRECT_ISSUER_ERROR);
                     return false;
                 } else if (decodedJWT.getExpiresAt().before(new Date())) {

@@ -34,10 +34,10 @@ import static com.itsharkz.enums.ReturnFieldsEnum.INFO;
 import static com.itsharkz.enums.ReturnFieldsEnum.LATTITUDE;
 import static com.itsharkz.enums.ReturnFieldsEnum.LONGITUDE;
 import static com.itsharkz.enums.ReturnFieldsEnum.NAME;
-import static com.itsharkz.enums.TypeEnum.DOUBLE;
 import static java.lang.String.format;
 import static java.net.URLEncoder.encode;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toMap;
@@ -97,7 +97,7 @@ public class RequestSender {
         return new RequestSender(cityProperties, autorization, lattitude, longitude, length, proportion);
     }
 
-    private String createUrlForParams() throws UnsupportedEncodingException {
+    private String createUrlForParams() {
         final var url = cityProperties.getUrl();
         if (cityProperties.getParamsType().equals(PATH)) {
             if (nonNull(cityProperties.getPathOrder())) {
@@ -171,13 +171,14 @@ public class RequestSender {
         final var info = (String) item.get(itemsMap.get(INFO).getName());
         final var lattutude = (Double) item.get(itemsMap.get(LATTITUDE).getName());
         final var longitude = (Double) item.get(itemsMap.get(LONGITUDE).getName());
-        final var capacity = itemsMap.get(CAPACITY).getType().equals(DOUBLE)
-            ? ((Double) item.get(itemsMap.get(CAPACITY).getName())).intValue()
-            : (Integer) item.get(itemsMap.get(CAPACITY).getName());
-        final var free = itemsMap.get(FREE_PLACES).getType().equals(DOUBLE)
-            ? ((Double) item.get(itemsMap.get(FREE_PLACES).getName())).intValue()
-            : (Integer) item.get(itemsMap.get(FREE_PLACES).getName());
+
+        final var capacity = getMinusOneIfNull((Number) item.get(itemsMap.get(CAPACITY).getName())).intValue();
+        final var free = getMinusOneIfNull((Number) item.get(itemsMap.get(FREE_PLACES).getName())).intValue();
         return new ParkingReturnProperties(name, info, lattutude, longitude, capacity, free);
+    }
+
+    private Number getMinusOneIfNull(Number value) {
+        return isNull(value) ? -1 : value;
     }
 
     public List<ParkingReturnProperties> send() throws IOException, RemoteServerException {
